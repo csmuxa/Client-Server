@@ -35,9 +35,10 @@ public class Client  {
 
 
     public static void main(String[] args) throws Exception{
+        String JSONToken="{ {merchantName}:{Azza}, {product}:{Profitrol} ,{price}:{34}}";
 
         Client client=new Client();
-        client.start("192.168.0.105",8000,"{ {merchantName}:{Azza}, {product}:{Profitrol} ,{price}:{34}}");
+        client.start("192.168.0.105",8000,JSONToken);
     }
 }
 
