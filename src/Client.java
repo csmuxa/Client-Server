@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client  {
@@ -9,9 +10,9 @@ public class Client  {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    private void initClient(String ip,int port){
+    private void initClient(InetAddress inetAddress,int port){
         try{
-            clientSocket=new Socket(ip,port);
+            clientSocket=new Socket(inetAddress,port);
             reader=new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             writer=new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));}
         catch (Exception e){
@@ -19,12 +20,13 @@ public class Client  {
         }
     }
 
-    public void start(String ip,int port,String tokenAsJSON)throws Exception{
-        initClient(ip,port);
+    public void start(InetAddress inetAddress,int port,String tokenAsJSON)throws Exception{
+        initClient(inetAddress,port);
 
         writer.write(tokenAsJSON);
         writer.newLine();
         writer.flush();
+        System.out.println(reader.readLine());
 
 
 
@@ -38,7 +40,9 @@ public class Client  {
         String JSONToken="{ {merchantName}:{Azza}, {product}:{Profitrol} ,{price}:{34}}";
 
         Client client=new Client();
-        client.start("192.168.0.105",8000,JSONToken);
+
+        System.out.println();
+        client.start(InetAddress.getByName("DESKTOP-C702F27"),8000,JSONToken);
     }
 }
 
